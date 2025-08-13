@@ -32,21 +32,20 @@ A comprehensive, one-command Vim configuration script that transforms your vanil
 
 ## 🛠️ Installation
 
-### One-Command Setup
+### One-Command Auto-Install (Recommended)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/ensonb/vimplug/main/vimplug_install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/[YOUR-USERNAME]/[REPO-NAME]/main/vimplug_install.sh | bash -s -- --auto
 ```
 
-### Manual Installation
+### Interactive Installation
 ```bash
-# Clone the repository
-git clone https://github.com/ensonb/vimplug.git
-cd [REPO-NAME]
-
-# Make executable and run
-chmod +x vimplug_install.sh
-./vimplug_install.sh
+# Download and run with prompts
+curl -fsSL https://raw.githubusercontent.com/[YOUR-USERNAME]/[REPO-NAME]/main/vimplug_install.sh > setup-vim.sh
+chmod +x setup-vim.sh
+./setup-vim.sh
 ```
+
+> **Note**: The auto-install skips confirmation prompts and installs everything automatically. Use interactive mode if you want to see prompts and have more control.
 
 ## 🎮 Key Mappings
 
@@ -96,7 +95,18 @@ chmod +x vimplug_install.sh
 
 ## 🔧 What Gets Installed
 
-### Plugins
+### 📦 Automatic Installation Process
+The script will automatically:
+1. **Detect your environment** (WSL/Linux)
+2. **Install dependencies** (vim, curl, git, xclip, jq, python3)
+3. **Backup existing .vimrc** (timestamped backup if exists)
+4. **Install vim-plug** (plugin manager)
+5. **Create optimized .vimrc** (with all configurations)
+6. **Install all plugins** (automatically via vim-plug)
+7. **Set up helpful aliases** (for clipboard and plugin management)
+8. **Create help script** (~/vim-help.sh for reference)
+
+### 🔌 Plugins
 - **[NerdTree](https://github.com/preservim/nerdtree)** - File system explorer
 - **[Airline](https://github.com/vim-airline/vim-airline)** - Lean & mean status/tabline
 - **[GitGutter](https://github.com/airblade/vim-gitgutter)** - Git diff in the gutter
@@ -162,16 +172,47 @@ vim-clean   # or vim +PlugClean +qall
 
 - **Automatic Backup**: Existing `.vimrc` is backed up with timestamp
 - **Non-destructive**: Preserves your current setup before making changes
-- **Confirmation Prompt**: Asks before proceeding with installation
+- **Confirmation Prompt**: Asks before proceeding with installation (interactive mode)
 - **Error Handling**: Exits gracefully on any errors
 
 ## 🎯 Perfect For
 
 - **New Vim Users**: Get a powerful setup without the learning curve
-- **Developers**: Modern IDE-like features in lightweight Vim
+- **Developers**: Modern IDE-like features in lightweight Vim  
 - **WSL Users**: Optimized for Windows Subsystem for Linux
 - **Git Workflows**: Seamless version control integration
 - **JSON Development**: Enhanced support for JSON editing
+- **System Administrators**: Quick setup on new servers/environments
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**Script hangs after "Detected Linux environment"**
+```bash
+# Use the auto flag to skip prompts
+curl -fsSL https://raw.githubusercontent.com/[YOUR-USERNAME]/[REPO-NAME]/main/vimplug_install.sh | bash -s -- --auto
+```
+
+**Permission denied errors**
+```bash
+# Make sure you have sudo access for package installation
+sudo apt update
+```
+
+**Plugins not working after installation**
+```bash
+# Manually install plugins
+vim +PlugInstall +qall
+```
+
+**Colors not showing correctly**
+```bash
+# Check if your terminal supports 256 colors
+echo $TERM
+# Try setting TERM if needed
+export TERM=xterm-256color
+```
 
 ## 🤝 Contributing
 
