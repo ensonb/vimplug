@@ -407,30 +407,12 @@ main() {
     check_environment
     
     echo ""
+    read -p "This will install vim-plug and configure vim. Continue? (y/N): " -n 1 -r
+    echo ""
     
-    # Handle input differently for piped vs interactive execution
-    if [[ -t 0 ]]; then
-        # Interactive mode (script run directly)
-        read -p "This will install vim-plug and configure vim. Continue? (y/N): " -n 1 -r
-        echo ""
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            print_status "Installation cancelled."
-            exit 0
-        fi
-    else
-        # Piped mode (curl | bash) - add auto-continue option
-        if [[ "$1" == "--auto" ]]; then
-            print_status "Auto-continue mode enabled. Proceeding with installation..."
-        else
-            print_warning "Script is being piped. Use --auto flag to skip confirmation:"
-            print_status "curl -fsSL [URL] | bash -s -- --auto"
-            echo ""
-            print_status "Or download and run interactively:"
-            print_status "curl -fsSL [URL] > setup-vim.sh && chmod +x setup-vim.sh && ./setup-vim.sh"
-            echo ""
-            print_error "Exiting. Please run with --auto flag or download first."
-            exit 1
-        fi
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        print_status "Installation cancelled."
+        exit 0
     fi
     
     echo ""
@@ -461,6 +443,7 @@ main() {
     echo "  ✓ 5 beautiful color themes"
     echo "  ✓ Enhanced key mappings"
     echo "  ✓ Search improvements"
+    echo "  ✓ Tmux configuration (gpakosz)"
     echo ""
     print_status "Quick start:"
     echo "  • Open vim and press Ctrl+n for file tree"
