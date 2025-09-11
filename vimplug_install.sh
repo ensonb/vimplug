@@ -342,10 +342,25 @@ alias clip="clip.exe"  # WSL clipboard
 alias pbcopy="clip.exe"
 alias vim-update="vim +PlugUpdate +qall"
 alias vim-clean="vim +PlugClean +qall"
+alias tmux-reload="tmux source-file ~/.tmux.conf"
 EOF
         print_status "Aliases added to ~/.bashrc"
     else
         print_status "Aliases already exist in ~/.bashrc"
+    fi
+    
+    # Add to zshrc if it exists
+    if [[ -f ~/.zshrc ]] && ! grep -q "# Vim Setup Script Aliases" ~/.zshrc; then
+        cat >> ~/.zshrc << 'EOF'
+
+# Vim Setup Script Aliases
+alias clip="clip.exe"  # WSL clipboard
+alias pbcopy="clip.exe"
+alias vim-update="vim +PlugUpdate +qall"
+alias vim-clean="vim +PlugClean +qall"
+alias tmux-reload="tmux source-file ~/.tmux.conf"
+EOF
+        print_status "Aliases added to ~/.zshrc"
     fi
 }
 
